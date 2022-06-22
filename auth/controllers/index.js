@@ -3,39 +3,45 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 module.exports.createUser = async (req, res) => {
-  const { name, email, password } = req.body;
+  try {
+    const { name, email, password } = req.body;
 
-  let user = await User.findOne({
-    where: { email: email },
-  });
+    let user = await User.findOne({
+      where: { email: email },
+    });
 
-  if (user) {
-    return res.status(400).json({ message: 'User already exists' });
-  }
+    if (user) {
+      return res.status(400).json({ message: 'User already exists' });
+    }
 
-  const passwordHash = await bcrypt.hash(password, 10);
+    const passwordHash = await bcrypt.hash(password, 10);
 
-  user = new User({
-    name,
-    email,
-    password: passwordHash,
-  });
+    user = new User({
+      name,
+      email,
+      password: passwordHash,
+    });
 
-  const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
-    expiresIn: '7d',
-  });
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+      expiresIn: '7d',
+    });
 
-  const newUser = await user.save();
+    const newUser = await user.save();
 
-  if (newUser) {
-    return res.status(201).json({ message: 'New User Created', token: token });
+    if (newUser) {
+      return res
+        .status(201)
+        .json({ message: 'New User Created', token: token });
+    }
+  } catch (err) {
+    console.log(err);
   }
 };
 
 //login user
 module.exports.login = async (req, res, next) => {
   const { email, password } = req.body;
-  console.log('email===>>>>', email);
+
   try {
     // Validate emil & password
     if (!email || !password) {
