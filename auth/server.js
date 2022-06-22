@@ -2,8 +2,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+const dotenv = require('dotenv');
 
 var app = express();
+
+// Load env vars
+dotenv.config({ path: './config/.env' });
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
