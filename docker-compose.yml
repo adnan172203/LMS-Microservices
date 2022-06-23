@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  auth:
+    depends_on:
+      - db
+    build: ./auth
+    ports:
+      - 5000:5000
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: admin
+      DB_NAME: auth-db
+
+  db:
+    image: postgres:14.4-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+    ports:
+      - '5432:5432'
+    volumes:
+      - lms-test:/data/db
+
+  pgAdmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@test.com
+      PGADMIN_DEFAULT_PASSWORD: password
+    ports:
+      - 8000:80
+
+volumes:
+  lms-test:
