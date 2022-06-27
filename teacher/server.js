@@ -15,14 +15,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //route files
-var usersRouter = require('./routes/index');
+var courseRouter = require('./routes/index');
 
 // Mount routers
-app.use('/api/v1/users', usersRouter);
+app.use('/api/v1/course', courseRouter);
 
 app.use(express.json());
 app.use(cookieParser());
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
