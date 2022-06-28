@@ -12,6 +12,18 @@ services:
       DB_NAME: auth-db
     depends_on:
       - db
+  teacher:
+    build: ./teacher
+    ports:
+      - 5001:5000
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: admin
+      DB_NAME: teacher-db
+    depends_on:
+      - db
 
   db:
     image: postgres:14.4-alpine
