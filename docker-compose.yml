@@ -12,6 +12,12 @@ services:
       DB_NAME: auth-db
     depends_on:
       - db
+    volumes:
+      - ./auth:/usr/app
+      - /usr/app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
   teacher:
     build: ./teacher
     # ports:
@@ -24,6 +30,12 @@ services:
       DB_NAME: teacher-db
     depends_on:
       - db
+    volumes:
+      - ./teacher:/usr/app
+      - /usr/app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true      
+
   nginx:
     build: ./nginx
     links:

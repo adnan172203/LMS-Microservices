@@ -3,6 +3,10 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 module.exports.createUser = async (req, res) => {
+  // if (!('authorization' in req.headers)) {
+  //   return res.status(401).send('Not authenticated');
+  // }
+
   try {
     const { name, email, password } = req.body;
 
