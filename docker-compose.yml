@@ -2,8 +2,8 @@ version: '3.8'
 services:
   auth:
     build: ./auth
-    ports:
-      - 5000:5000
+    # ports:
+    #   - 5001:5000
     environment:
       DB_HOST: db
       DB_PORT: 5432
@@ -14,8 +14,8 @@ services:
       - db
   teacher:
     build: ./teacher
-    ports:
-      - 5001:5001
+    # ports:
+    #   - 5002:5000
     environment:
       DB_HOST: db
       DB_PORT: 5432
@@ -24,6 +24,13 @@ services:
       DB_NAME: teacher-db
     depends_on:
       - db
+  nginx:
+    build: ./nginx
+    links:
+      - auth
+      - teacher
+    ports:
+      - '80:80'
 
   db:
     image: postgres:14.4-alpine
