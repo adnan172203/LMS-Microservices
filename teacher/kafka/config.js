@@ -1,8 +1,16 @@
 const { Kafka } = require('kafkajs');
 
-export const kafka = new Kafka({
+const kafka = new Kafka({
   clientId: 'teacher-app',
   brokers: ['localhost:9092'],
+  connectionTimeout: 3000, // time in ms defauult value is 1000
+  requestTimeout: 25000, // defauult 30000 ms
+  retry: {
+    initialRetryTime: 100,
+    retries: 8,
+  },
 });
 
-export const producer = kafka.producer();
+const producer = kafka.producer();
+
+module.exports = producer;
