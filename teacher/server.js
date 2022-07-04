@@ -2,11 +2,19 @@ var express = require('express');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 const dotenv = require('dotenv');
+const producer = require('./kafka/config');
 
 var app = express();
 
 // Load env vars
 dotenv.config({ path: './config/.env' });
+
+//kafka producer connect
+const producerConnect = async () => {
+  await producer.connect();
+};
+
+producerConnect();
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
