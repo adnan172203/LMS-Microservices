@@ -23,6 +23,7 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_ADVERTISED_HOST_NAME: kafka-internal.io
 
 
   auth:
@@ -43,8 +44,8 @@ services:
     environment:
       - CHOKIDAR_USEPOLLING=true
 
-  teacher:
-    build: ./teacher
+  instructor:
+    build: ./instructor
     # ports:
     #   - 5002:5000
     environment:
@@ -52,11 +53,29 @@ services:
       DB_PORT: 5432
       DB_USER: postgres
       DB_PASSWORD: admin
-      DB_NAME: teacher-db
+      DB_NAME: instructor-db
     depends_on:
       - db
     volumes:
-      - ./teacher:/usr/app
+      - ./instructor:/usr/app
+      - /usr/app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+            
+  course:
+    build: ./course
+    # ports:
+    #   - 5002:5000
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: admin
+      DB_NAME: course-db
+    depends_on:
+      - db
+    volumes:
+      - ./course:/usr/app
       - /usr/app/node_modules
     environment:
       - CHOKIDAR_USEPOLLING=true      
@@ -65,7 +84,8 @@ services:
     build: ./nginx
     links:
       - auth
-      - teacher
+      - instructor
+      - course
     ports:
       - '80:80'
 
