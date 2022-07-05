@@ -5,6 +5,6 @@ const kafka = new Kafka({
   brokers: ['host.docker.internal:9092'],
 });
 
-let producer = kafka.producer();
+const producer = kafka.producer();
 
 module.exports = producer;

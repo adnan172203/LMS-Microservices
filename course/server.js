@@ -9,8 +9,17 @@ var app = express();
 // Load env vars
 dotenv.config({ path: './config/.env' });
 
+// const { Kafka } = require('kafkajs');
+
+// const kafka = new Kafka({
+//   clientId: 'micro-app',
+//   brokers: ['host.docker.internal:9092'],
+// });
+
+// const producer = kafka.producer();
+
 run().then(
-  () => console.log('Done'),
+  () => console.log('Dones'),
   (err) => console.log(err)
 );
 
@@ -19,7 +28,7 @@ async function run() {
 
   await producer.send({
     topic: 'test-topic',
-    messages: [{ value: 'Hellooo KafkaJS user!' }],
+    messages: [{ value: 'Hello KafkaJS! ' }],
   });
 }
 

@@ -2,8 +2,8 @@ var express = require('express');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 const dotenv = require('dotenv');
-// const producer = require('./kafka/config');
-
+const producer = require('./kafka/config');
+const { kafka } = require('./kafka/config');
 var app = express();
 
 // Load env vars
@@ -11,12 +11,12 @@ dotenv.config({ path: './config/.env' });
 
 //kafka producer connect
 
-const { Kafka } = require('kafkajs');
+// const { Kafka } = require('kafkajs');
 
-const kafkaClient = new Kafka({
-  clientId: 'micro-app',
-  brokers: ['host.docker.internal:9092'],
-});
+// const kafkaClient = new Kafka({
+//   clientId: 'micro-app',
+//   brokers: ['host.docker.internal:9092'],
+// });
 
 run().then(
   () => console.log('Dones'),
@@ -24,7 +24,7 @@ run().then(
 );
 
 async function run() {
-  const consumer = kafkaClient.consumer({
+  const consumer = kafka.consumer({
     groupId: 'micro-app',
   });
   // Consuming
