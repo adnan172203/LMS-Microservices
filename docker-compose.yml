@@ -1,6 +1,5 @@
 version: '3.8'
 services:
-
   zookeeper:
     image: confluentinc/cp-zookeeper:7.0.1
     container_name: zookeeper
@@ -25,60 +24,60 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_ADVERTISED_HOST_NAME: kafka-internal.io
 
-
   auth:
     build: ./auth
     # ports:
     #   - 5001:5000
     environment:
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_USER: postgres
-      DB_PASSWORD: admin
-      DB_NAME: auth-db
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=admin
+      - DB_NAME=auth-db
+      - CHOKIDAR_USEPOLLING=true
     depends_on:
       - db
     volumes:
       - ./auth:/usr/app
       - /usr/app/node_modules
-    environment:
-      - CHOKIDAR_USEPOLLING=true
+    # environment:
+    #   - CHOKIDAR_USEPOLLING=true
+    #   - DB_NAME=auth-db
 
   instructor:
     build: ./instructor
     # ports:
     #   - 5002:5000
-    environment:
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_USER: postgres
-      DB_PASSWORD: admin
-      DB_NAME: instructor-db
     depends_on:
       - db
     volumes:
       - ./instructor:/usr/app
       - /usr/app/node_modules
     environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=admin
+      - DB_NAME=instructor-db
       - CHOKIDAR_USEPOLLING=true
-            
+
   course:
     build: ./course
     # ports:
     #   - 5002:5000
     environment:
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_USER: postgres
-      DB_PASSWORD: admin
-      DB_NAME: course-db
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=admin
+      - DB_NAME=course-db
+      - CHOKIDAR_USEPOLLING=true
+
     depends_on:
       - db
     volumes:
       - ./course:/usr/app
       - /usr/app/node_modules
-    environment:
-      - CHOKIDAR_USEPOLLING=true      
 
   nginx:
     build: ./nginx
