@@ -22,6 +22,11 @@ module.exports = (sequelize, DataTypes) => {
       name: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
+      role: {
+        type: DataTypes.ENUM,
+        values: ['customer', 'admin'],
+        defaultValue: 'customer',
+      },
     },
     {
       sequelize,
