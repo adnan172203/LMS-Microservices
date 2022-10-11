@@ -9,15 +9,6 @@ var app = express();
 // Load env vars
 dotenv.config({ path: './config/.env' });
 
-//kafka producer connect
-
-// const { Kafka } = require('kafkajs');
-
-// const kafkaClient = new Kafka({
-//   clientId: 'micro-app',
-//   brokers: ['host.docker.internal:9092'],
-// });
-
 run().then(
   () => console.log('Dones'),
   (err) => console.log(err)
@@ -29,7 +20,7 @@ async function run() {
   });
   // Consuming
   await consumer.connect();
-  await consumer.subscribe({ topic: 'test-topic', fromBeginning: true });
+  await consumer.subscribe({ topic: 'auth-topic', fromBeginning: true });
 
   await consumer.run({
     eachMessage: async ({ topic, partition, message }) => {

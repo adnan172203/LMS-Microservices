@@ -1,32 +1,24 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Courses', {
+    await queryInterface.createTable('Users', {
       id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
       },
-      title: {
+      name: {
         type: Sequelize.STRING,
       },
-      description: {
-        type: Sequelize.TEXT,
-      },
-      price: {
-        type: Sequelize.INTEGER,
-      },
-      duration: {
-        type: Sequelize.INTEGER,
-      },
-      price: {
+
+      email: {
         type: Sequelize.STRING,
       },
-      category: {
-        type: Sequelize.ARRAY(Sequelize.TEXT),
-      },
-      image: {
-        type: Sequelize.STRING,
+
+      role: {
+        type: Sequelize.ENUM,
+        values: ['user', 'instructor', 'admin'],
+        defaultValue: 'user',
       },
       createdAt: {
         allowNull: false,
@@ -39,6 +31,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Courses');
+    await queryInterface.dropTable('Users');
   },
 };

@@ -1,6 +1,7 @@
 const User = require('../models').User;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const producer = require('../kafka/config');
 
 module.exports.createUser = async (req, res) => {
   // if (!('authorization' in req.headers)) {
@@ -31,6 +32,25 @@ module.exports.createUser = async (req, res) => {
     });
 
     const newUser = await user.save();
+
+    // run().then(
+    //   () => console.log('Dones'),
+    //   (err) => console.log(err)
+    // );
+
+    const messages = [
+      {
+        key: 'linkCreated',
+        value: JSON.stringify(newUser),
+      },
+    ];
+
+    await producer.connect();
+
+    await producer.send({
+      topic: 'auth-topic',
+      messages,
+    });
 
     if (newUser) {
       return res
