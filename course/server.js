@@ -2,7 +2,8 @@ var express = require('express');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 const dotenv = require('dotenv');
-const producer = require('./kafka/config');
+const { producer } = require('./kafka/config');
+const kafkaConsumer = require('./kafka/subscribe');
 
 var app = express();
 

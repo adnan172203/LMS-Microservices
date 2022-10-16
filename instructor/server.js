@@ -20,7 +20,7 @@ async function run() {
   });
   // Consuming
   await consumer.connect();
-  await consumer.subscribe({ topic: 'auth-topic', fromBeginning: true });
+  await consumer.subscribe({ topic: 'test-topic', fromBeginning: true });
 
   await consumer.run({
     eachMessage: async ({ topic, partition, message }) => {

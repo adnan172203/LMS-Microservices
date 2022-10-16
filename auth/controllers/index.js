@@ -11,17 +11,17 @@ module.exports.createUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    let user = await User.findOne({
-      where: { email: email },
-    });
+    // let user = await User.findOne({
+    //   where: { email: email },
+    // });
 
-    if (user) {
-      return res.status(400).json({ message: 'User already exists' });
-    }
+    // if (user) {
+    //   return res.status(400).json({ message: 'User already exists' });
+    // }
 
     const passwordHash = await bcrypt.hash(password, 10);
 
-    user = new User({
+    const user = new User({
       name,
       email,
       password: passwordHash,
@@ -31,21 +31,14 @@ module.exports.createUser = async (req, res) => {
       expiresIn: '7d',
     });
 
-    const newUser = await user.save();
-
-    // run().then(
-    //   () => console.log('Dones'),
-    //   (err) => console.log(err)
-    // );
+    const newUser = await user.save('-password');
 
     const messages = [
       {
-        key: 'linkCreated',
+        key: 'userCreated',
         value: JSON.stringify(newUser),
       },
     ];
-
-    await producer.connect();
 
     await producer.send({
       topic: 'auth-topic',
