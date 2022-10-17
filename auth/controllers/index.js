@@ -31,7 +31,7 @@ module.exports.createUser = async (req, res) => {
       expiresIn: '7d',
     });
 
-    const newUser = await user.save('-password');
+    const newUser = await user.save();
 
     const messages = [
       {
