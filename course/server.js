@@ -3,7 +3,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const { producer } = require('./kafka/config');
-const kafkaConsumer = require('./kafka/subscribe');
+const kafkaConsumer = require('./kafka/consumer');
 
 var app = express();
 
@@ -19,19 +19,19 @@ dotenv.config({ path: './config/.env' });
 
 // const producer = kafka.producer();
 
-run().then(
-  () => console.log('Dones'),
-  (err) => console.log(err)
-);
+// run().then(
+//   () => console.log('Dones'),
+//   (err) => console.log(err)
+// );
 
-async function run() {
-  await producer.connect();
+// async function run() {
+//   await producer.connect();
 
-  await producer.send({
-    topic: 'test-topic',
-    messages: [{ value: 'Hello KafkaJS! test' }],
-  });
-}
+//   await producer.send({
+//     topic: 'test-topic',
+//     messages: [{ value: 'Hello KafkaJS! test' }],
+//   });
+// }
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
