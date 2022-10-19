@@ -98,18 +98,18 @@ services:
     volumes:
       - ./data/db:/var/lib/postgresql/data
 
-  pgAdmin:
-    image: dpage/pgadmin4
-    logging:
-      driver: none
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@test.com
-      PGADMIN_DEFAULT_PASSWORD: password
-    ports:
-      - 8000:80
-    volumes:
-      - ./data/pgadmin-data:/var/lib/pgadmin
+  # pgAdmin:
+  #   image: dpage/pgadmin4
+  #   logging:
+  #     driver: none
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: admin@test.com
+  #     PGADMIN_DEFAULT_PASSWORD: password
+  #   ports:
+  #     - 8000:80
+  #   volumes:
+  #     - ./data/pgadmin-data:/var/lib/pgadmin
 
 volumes:
   db:
-  pgAdmin:
+  # pgAdmin:

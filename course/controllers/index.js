@@ -1,22 +1,24 @@
 const Course = require('../models').Course;
 
 module.exports.createCourse = async (req, res) => {
-  const { title, description, price, duration, category, image } = req.body;
+  // const { title, description, price, duration, category, image } = req.body;
 
-  const course = new Course({
-    title,
-    description,
-    price,
-    duration,
-    category,
-    image,
-  });
-  const newCourse = await course.save();
-  if (newCourse) {
-    return res
-      .status(201)
-      .json({ message: 'New Course Created', data: newCourse });
-  }
+  // const course = new Course({
+  //   title,
+  //   description,
+  //   price,
+  //   duration,
+  //   category,
+  //   image,
+  // });
+  // const newCourse = await course.save();
+  // if (newCourse) {
+  //   return res
+  //     .status(201)
+  //     .json({ message: 'New Course Created', data: newCourse });
+  // }
+  console.log('user id ====================>>>>>>>', req.userId);
+  res.send('course is created');
 };
 
 module.exports.getCourseList = async (req, res) => {

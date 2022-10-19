@@ -87,7 +87,7 @@ module.exports.login = async (req, res, next) => {
       expiresIn: '7d',
     });
 
-    return res.status(201).json({ token: token });
+    return res.status(201).cookie('token', token).json({ token: token });
   } catch (err) {
     console.log(err);
   }
