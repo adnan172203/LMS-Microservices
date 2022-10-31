@@ -1,4 +1,4 @@
-const { Course } = require('../models');
+const { Course, CourseLesson } = require('../models');
 
 module.exports.createCourse = async (req, res) => {
   const { title, description, price, duration, category, image } = req.body;
@@ -20,8 +20,31 @@ module.exports.createCourse = async (req, res) => {
 };
 
 module.exports.getCourseList = async (req, res) => {
-  const allCourses = await Course.findAll({});
+  const allCourses = await Course.findAll({
+    include: [
+      {
+        model: CourseLesson,
+        as: 'courseLesson',
+      },
+    ],
+  });
   if (allCourses) {
     return res.status(201).json({ data: allCourses });
   }
+};
+
+module.exports.addLesson = async (req, res) => {
+  const { title, content, video, courseId, userId } = req.body;
+
+  const addCourseLesson = new CourseLesson({
+    title,
+    content,
+    video,
+    courseId,
+    userId,
+  });
+
+  await addCourseLesson.save();
+
+  res.json(addCourseLesson);
 };

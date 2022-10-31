@@ -19,9 +19,6 @@ module.exports = {
       duration: {
         type: Sequelize.INTEGER,
       },
-      price: {
-        type: Sequelize.STRING,
-      },
       category: {
         type: Sequelize.ARRAY(Sequelize.TEXT),
       },

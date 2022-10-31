@@ -1,13 +1,17 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+
+const router = express.Router();
 const isAuthenticated = require('../isAuthenticated');
 
-const { createCourse, getCourseList } = require('../controllers');
+const { createCourse, getCourseList, addLesson } = require('../controllers');
 
-//create course
+// create course
 router.post('/', isAuthenticated, createCourse);
 
-//get all course
+// create course
+router.post('/addlesson', isAuthenticated, addLesson);
+
+// get all course
 router.get('/', getCourseList);
 
 module.exports = router;
