@@ -21,6 +21,7 @@ module.exports.createCourse = async (req, res) => {
 
 module.exports.getCourseList = async (req, res) => {
   const allCourses = await Course.findAll({
+    order: [['createdAt', 'ASC']],
     include: [
       {
         model: CourseLesson,
