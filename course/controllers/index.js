@@ -30,7 +30,7 @@ module.exports.getCourseList = async (req, res) => {
     ],
   });
   if (allCourses) {
-    return res.status(201).json({ data: allCourses });
+    return res.status(201).send(allCourses);
   }
 };
 
