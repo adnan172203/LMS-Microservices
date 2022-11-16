@@ -5,7 +5,6 @@ const { Header, Content, Footer } = Layout;
 
 const Navbar = () => {
   const items = [
-    // { label: 'Home', key: 'item-1' }, // remember to pass the key prop
     {
       label: (
         <Link href='/' rel='noopener noreferrer'>
@@ -14,15 +13,7 @@ const Navbar = () => {
       ),
       key: 'home',
     },
-    { label: 'Dashboard', key: 'item-2' }, // which is required
-    {
-      label: (
-        <a href='https://ant.design' target='_blank' rel='noopener noreferrer'>
-          Navigation Four - Link
-        </a>
-      ),
-      key: 'fifa',
-    },
+
     {
       label: (
         <Link href='/dashboard' rel='noopener noreferrer'>
