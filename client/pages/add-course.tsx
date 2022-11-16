@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Breadcrumb, Layout, Menu } from 'antd';
+import { Layout, Menu } from 'antd';
 import Link from 'next/link';
 import {
   MenuFoldOutlined,
@@ -8,9 +8,11 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons';
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Sider } = Layout;
 
-const Dashboard = () => {
+import CourseCreateForm from '../components/CourseCreateForm/CourseCreateForm';
+
+const AddCourse = () => {
   const [collapsed, setCollapsed] = useState(false);
   return (
     <>
@@ -47,11 +49,13 @@ const Dashboard = () => {
         </Sider>
         <Content
           className='site-layout'
-          style={{ padding: '0 0px', marginTop: 0 }}
-        ></Content>
+          style={{ padding: '0 0px', marginTop: 64 }}
+        >
+          <CourseCreateForm />
+        </Content>
       </Layout>
     </>
   );
 };
 
-export default Dashboard;
+export default AddCourse;
